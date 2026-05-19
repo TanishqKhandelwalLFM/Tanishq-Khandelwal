@@ -1,0 +1,23 @@
+[
+    {
+        "id" : 1,
+        "title": "chole bhature",
+        "amount": 50,
+        "date": "18 may 2026",
+        "keyword": "food"
+    },
+    {
+        "id" : 2,
+        "title": "ice-cream",
+        "amount": 20,
+        "date": "18 may 2026",
+        "keyword": "food"
+    },
+    {
+        "id" : 3,
+        "title": "skit to quintype",
+        "amount": 95,
+        "date": "18 may 2026",
+        "keyword": "travelling"
+    }
+]
