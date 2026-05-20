@@ -1,0 +1,11 @@
+React js is the javascript library that provides states and hooks that works on virtual dom.
+it helps that it does not re-render the entire application just renders the particular component
+it works on component based architecture
+states can be managed using usestate
+data can be managed using contextapi
+useeffect is mainly used to fetch data from apis
+
+
+props are passed from parent to child component
+props can not be moved from child to parent component , so to manage this we use contextapi
+contextapi is complex so we can also use redux-toolkit which works on reducers and slices 
