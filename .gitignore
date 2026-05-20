@@ -6,3 +6,6 @@ __pycache__/
 
 instance/
 *.db
+
+
+node_modules/
