@@ -1,0 +1,284 @@
+Section A
+
+1.Ans1 
+
+list and tuple are collection of values of same or different datatypes
+list is mutable 
+tuple is immutable
+
+dictionary is the collection of key-value pairs that are used for mapping and hashing
+dictionary will not contain any duplicate values
+
+set is a collection of unique values of same or different datatypes
+
+list -> [1,True,'hello',1]
+tuple -> (1,'True','hello',1)
+
+dictionary -> {'a' : 1 , 'b' : 2 , 'c' : 3}
+set -> {1,2,3,'Hello'}
+
+
+
+
+2. Ans2
+
+result = [i for i in range(1,21) if i%2 == 0]
+
+
+3. Ans3
+
+
+def read_json_safely(path):
+    if not os.path.exists():
+        return None
+
+    try:
+        with open (path,'r') as file :
+            result = json.load(file)
+    except :
+        result = []
+    return result 
+
+
+
+4. Ans4 
+
+a. it recommends maximum line length of 79 characters
+b. naming conventions should be snake_case (lowercase and use of underscores) -> eg : add_to_cart
+c. for defining classes , it should be capitalcase or pascalcase
+d. indent = 4
+e. we should leave 2 blank lines
+
+5. Ans5
+
+a. mkdir expense_tracker
+   cd expense_tracker
+
+b. python3 -m venv .venv
+   source .venv/bin/activate
+
+c. pip install pydantic requests
+
+d. pip freeze > requirements.txt
+
+
+6. Ans6
+
+import requests
+
+url = "https://api.github.com/users/anthropics"
+
+res = requests.get(url)
+
+
+if response.status_code != 200:
+    print(f"Request failed with status code: {response.status_code}")
+
+data = response.json()
+print(f"{data["name"]} {data["public_repos"]} {data["followers"]} ")
+
+
+7. Ans7 
+
+api keys should not be hardcoded instead they should be done in .env file because .py file is pushed to github and may be open-source file that may cause stolen of your api keys or api tokens
+
+in .env file , it should be like 
+
+MY_API_KEY = 'abcvdsdfbfj-densbmnvhjhb'
+
+and in .py file it should be like
+
+api_key = os.getenv("MY_API_KEY")
+
+
+
+8. Ans8 
+
+from pydantic import BaseModel, Field
+from typing import Annotated
+
+class Weather(BaseModel) :
+    city : Annotated[str,Field(min_length=1)]
+    temperature_c: Annotated[float,Field(ge=-50, le=60)]
+    humidity: Annotated[int,Field(ge=0, le=100)]
+    conditions: list[str]
+
+eg :  valid instance
+weather = Weather(
+    city="Jaipur",
+    temperature_c=31.4,
+    humidity=42,
+    conditions=["sunny", "windy"]
+)
+
+eg : failed instance 
+
+weather = Weather(
+    city="Jaipur",
+    temperature_c=81.4,
+    humidity=42.25,
+    conditions=["sunny", "windy"]
+)
+
+
+9. Ans9 
+
+
+10. Ans 10
+
+npm create vite
+intern-app 
+react 
+javascript 
+npm i 
+npm run dev
+
+
+11. Ans 11
+these are some issues that i can identify
+    a. in react we use className instead of class
+    b. closing tag for p should be </p>
+    c. the function name for clicking should be onClick
+    d. 
+
+
+12. Ans 12
+ 
+const Badge = ({label,color}) =>{
+    return (
+        <span className = `bg-${color ? color : 'white'}-500 text-white`>label</span>
+    )
+}
+
+export default Badge
+
+
+in app.jsx it should be 
+
+const data = [
+    {
+        label:'hello',
+        color " 'blue,
+    },
+    {
+        label:'guys',
+        color " 'red,
+    },
+    {
+        label:'bye',
+        color " 'green,
+    }
+]
+
+data.map((elem,idx)=>{
+    return (
+        <Badge key={idx} color={elem.color} label={elem.label} />
+    )
+})
+
+
+13. Ans 13
+
+props are used to pass the data from parent to child component 
+state is used to store the data and renders the component on change
+
+props are the readable data that.
+states can be changed in between
+
+eg : passing props -> <Card key={idx} data={'hello'} />
+eg : state -> const [count,setCount] = useState(0)    -> here count represents the state and setCount represents the function to change the value of count
+
+
+
+14. Ans16
+    const counter = ()=>{
+    const solve = (val)=>{
+        setCount(count+val)
+    }
+    return (
+        const [count,setCount] = useState(0)
+        <h1>{count}</h1>
+
+        <button onClick={()=>{counter(+1)}}>+1</button>
+        <button onClick={()=>{counter(-1)}}>-1</button>
+        <button onClick={()=>{counter(-count)}}>reset</button>
+    )
+}
+
+export default Counter
+
+
+15. Ans 15
+    the given mistakes are 
+    a. there should be an empty dependency array for useEffect otherwise it will run infinte times 
+    b. an unique key should be passed whenever we do mapping to uniquely identify each component
+
+
+16. Ans 16
+
+const APP = () => {
+  const [users, setUsers] = useState([]);
+  const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        setLoading(true);
+        setError("");
+
+        const res = await axios.get(
+          "https://jsonplaceholder.typicode.com/users"
+        );        
+        setUsers(res.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUsers();
+  }, []);
+
+
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (error) {
+    return <h2>{error}</h2>;
+  }
+
+  return (
+    <div>
+      <h1>User Search</h1>
+
+      <input
+        type="text"
+        placeholder="Search users"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+      {filteredUsers.length === 0 ? (
+        <p>No users found</p>
+      ) : (
+        <div>
+          {filteredUsers.map((user) => (
+            <li key={user.id}>
+              {user.name}
+            </li>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default APP
