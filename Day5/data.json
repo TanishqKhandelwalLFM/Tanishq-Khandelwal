@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "category": "Python",
+    "title": "Python MCQ Generator",
+    "pattern": "Role + JSON + Chain of Thought",
+    "when_to_use": "Generate practice MCQs for Python technical tests",
+    "prompt": "You are an expert Python tutor and technical interviewer.\n\nGenerate 50 Python MCQs commonly asked in technical interviews.\n\nThink step by step:\n1. Cover basics: variables, loops, functions, OOP\n2. Cover intermediate: decorators, generators, comprehensions\n3. Cover advanced: memory management, concurrency\n\nRespond ONLY in valid JSON:\n{\n  \"mcqs\": [\n    {\n      \"question\": \"\",\n      \"options\": [\"A\", \"B\", \"C\", \"D\"],\n      \"answer\": \"\",\n      \"explanation\": \"\",\n      \"difficulty\": \"easy/medium/hard\",\n      \"topic\": \"\"\n    }\n  ]\n}\n\nNo explanation. Just JSON.",
+    "notes": "Use temperature 0.2 for accurate answers",
+    "temperature": 0.2
+  },
+  {
+    "id": 2,
+    "category": "DSA",
+    "title": "DSA Concept Explainer",
+    "pattern": "Role + Chain of Thought",
+    "when_to_use": "Understand any DSA concept step by step",
+    "prompt": "You are a senior software engineer and DSA expert.\n\nExplain {topic} to me.\n\nThink step by step:\n1. What is the core concept?\n2. Where is it used in real systems?\n3. What is the time and space complexity?\n4. Show a simple Python implementation\n5. Give 2 interview problems that use this\n\nBe direct, no fluff.",
+    "notes": "Replace {topic} with: arrays, trees, graphs, DP etc.",
+    "temperature": 0.3
+  },
+  {
+    "id": 3,
+    "category": "OS",
+    "title": "OS Concepts MCQ Generator",
+    "pattern": "Role + JSON Output",
+    "when_to_use": "Practice Operating Systems interview questions",
+    "prompt": "You are an OS professor and technical interviewer.\n\nGenerate 30 MCQs on Operating Systems fundamentals.\nCover: processes, threads, memory management, deadlocks, scheduling.\n\nRespond ONLY in valid JSON:\n{\n  \"mcqs\": [\n    {\n      \"question\": \"\",\n      \"options\": [\"A\", \"B\", \"C\", \"D\"],\n      \"answer\": \"\",\n      \"topic\": \"process/memory/deadlock/scheduling\",\n      \"difficulty\": \"easy/medium/hard\"\n    }\n  ]\n}\n\nNo explanation. Just JSON.",
+    "notes": "Great for GATE and product company interviews",
+    "temperature": 0.2
+  },
+  {
+    "id": 4,
+    "category": "DBMS",
+    "title": "SQL Query Practice Generator",
+    "pattern": "Role + Few Shot + JSON",
+    "when_to_use": "Generate SQL practice problems with solutions",
+    "prompt": "You are a database architect and SQL expert.\n\nGenerate 20 SQL practice problems from easy to hard.\n\nExamples:\nInput: 'Find employees earning above average'\nOutput: SELECT * FROM employees WHERE salary > (SELECT AVG(salary) FROM employees)\n\nInput: 'Find second highest salary'\nOutput: SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees)\n\nNow generate 20 more covering: JOINs, subqueries, aggregations, window functions.\n\nRespond ONLY in valid JSON:\n{\n  \"problems\": [\n    {\n      \"problem\": \"\",\n      \"solution\": \"\",\n      \"concept\": \"\",\n      \"difficulty\": \"\"\n    }\n  ]\n}\n\nNo explanation. Just JSON.",
+    "notes": "Best for companies that test SQL heavily",
+    "temperature": 0.2
+  },
+  {
+    "id": 5,
+    "category": "OOP",
+    "title": "OOP Pillars Deep Dive",
+    "pattern": "Role + Chain of Thought",
+    "when_to_use": "Deep understand OOP concepts for interviews",
+    "prompt": "You are a senior Python developer and technical interviewer.\n\nExplain all 4 OOP pillars for interview preparation.\n\nThink step by step for each pillar:\n1. Simple definition in one line\n2. Real world analogy\n3. Python code example\n4. How interviewers test this\n5. Common mistakes candidates make\n\nCover: Encapsulation, Inheritance, Polymorphism, Abstraction.\n\nBe brutally practical.",
+    "notes": "Use temperature 0.3 for balanced explanation",
+    "temperature": 0.3
+  },
+  {
+    "id": 6,
+    "category": "System Design",
+    "title": "System Design Interview Guide",
+    "pattern": "Role + Chain of Thought",
+    "when_to_use": "Prepare for system design interview rounds",
+    "prompt": "You are a principal engineer at a top tech company.\n\nWalk me through how to design {system} for an interview.\n\nThink step by step:\n1. Clarify requirements and scale\n2. High level architecture\n3. Database choice and schema\n4. API design\n5. Bottlenecks and solutions\n6. What the interviewer is really testing\n\nBe specific with numbers: users, requests per second, storage.",
+    "notes": "Replace {system} with: URL shortener, chat app, etc.",
+    "temperature": 0.4
+  },
+  {
+    "id": 7,
+    "category": "Python",
+    "title": "Python Flashcard Generator",
+    "pattern": "Role + JSON Output",
+    "when_to_use": "Quick revision flashcards for Python concepts",
+    "prompt": "You are a Python expert and educator.\n\nGenerate 30 Python concept flashcards for interview revision.\n\nRespond ONLY in valid JSON:\n{\n  \"flashcards\": [\n    {\n      \"concept\": \"\",\n      \"one_line_definition\": \"\",\n      \"example_code\": \"\",\n      \"interview_tip\": \"\",\n      \"topic\": \"\"\n    }\n  ]\n}\n\nCover: decorators, generators, lambda, map/filter, comprehensions, args/*kwargs, GIL.\n\nNo explanation. Just JSON.",
+    "notes": "Print and use as physical flashcards",
+    "temperature": 0.2
+  },
+  {
+    "id": 8,
+    "category": "Networks",
+    "title": "Networking MCQ Generator",
+    "pattern": "Role + JSON Output",
+    "when_to_use": "Practice Computer Networks interview questions",
+    "prompt": "You are a network engineer and CS professor.\n\nGenerate 25 networking MCQs for technical interviews.\nCover: OSI model, TCP/IP, HTTP/HTTPS, DNS, sockets.\n\nRespond ONLY in valid JSON:\n{\n  \"mcqs\": [\n    {\n      \"question\": \"\",\n      \"options\": [\"A\", \"B\", \"C\", \"D\"],\n      \"answer\": \"\",\n      \"explanation\": \"\",\n      \"topic\": \"\",\n      \"difficulty\": \"\"\n    }\n  ]\n}\n\nNo explanation outside JSON.",
+    "notes": "Focus on TCP vs UDP — very commonly asked",
+    "temperature": 0.2
+  },
+  {
+    "id": 9,
+    "category": "DSA",
+    "title": "Coding Problem Solver",
+    "pattern": "Role + Chain of Thought",
+    "when_to_use": "Solve and deeply understand any coding problem",
+    "prompt": "You are a FAANG software engineer and coding mentor.\n\nSolve this problem: {paste problem here}\n\nThink step by step:\n1. Restate problem in simple words\n2. Brute force solution first\n3. Identify the bottleneck\n4. Optimize step by step\n5. Write clean Python code\n6. Time and space complexity\n7. Edge cases\n\nShow complete thinking, not just the answer.",
+    "notes": "Use this for LeetCode problems",
+    "temperature": 0.3
+  },
+  {
+    "id": 10,
+    "category": "DBMS",
+    "title": "DBMS Theory MCQ Generator",
+    "pattern": "Role + JSON Output",
+    "when_to_use": "Practice DBMS theory for written tests",
+    "prompt": "You are a database professor and technical interviewer.\n\nGenerate 30 DBMS theory MCQs for technical interviews.\nCover: normalization, ACID, transactions, indexing, joins.\n\nRespond ONLY in valid JSON:\n{\n  \"mcqs\": [\n    {\n      \"question\": \"\",\n      \"options\": [\"A\", \"B\", \"C\", \"D\"],\n      \"answer\": \"\",\n      \"explanation\": \"\",\n      \"topic\": \"\",\n      \"difficulty\": \"\"\n    }\n  ]\n}\n\nNo explanation. Just JSON.",
+    "notes": "Normalization questions appear in almost every test",
+    "temperature": 0.2
+  },
+  {
+    "id": 11,
+    "category": "Python",
+    "title": "Code Review and Fix",
+    "pattern": "Role + Chain of Thought",
+    "when_to_use": "Debug and improve any Python code",
+    "prompt": "You are a senior Python developer doing a code review.\n\nReview this code: {paste your code}\n\nThink step by step:\n1. What does this code do?\n2. Bugs if any?\n3. Performance issues?\n4. Best practice violations?\n5. Rewrite the improved version\n6. Explain every change made\n\nBe brutally honest.",
+    "notes": "Great for cleaning up projects before interview",
+    "temperature": 0.3
+  },
+  {
+    "id": 12,
+    "category": "HR",
+    "title": "HR Interview Prep",
+    "pattern": "Role + Chain of Thought",
+    "when_to_use": "Prepare answers for HR round questions",
+    "prompt": "You are an experienced HR interviewer at a top tech company.\n\nHelp me prepare for HR interview questions.\n\nThink step by step for each question:\n1. What is the interviewer really testing?\n2. Ideal structure of the answer\n3. Sample strong answer\n4. Common mistakes candidates make\n\nCover: Tell me about yourself, Why us, 5 year plan, Biggest weakness, Challenge you overcame.",
+    "notes": "Use temperature 0.7 for natural sounding answers",
+    "temperature": 0.7
+  },
+  {
+    "id": 13,
+    "category": "OS",
+    "title": "OS Concepts Comparisons",
+    "pattern": "Role + Few Shot",
+    "when_to_use": "Understand OS concepts through side by side comparisons",
+    "prompt": "You are an OS expert explaining concepts to a CS fresher.\n\nExplain OS concepts using this format:\n\nConcept: 'Process vs Thread'\nDifference: Process is independent, Thread shares memory\nReal world: Process = apps, Thread = tabs in browser\nInterview answer: 'A process has its own memory space while threads share...'\n\nNow explain in the same format:\n- Paging vs Segmentation\n- Mutex vs Semaphore\n- Preemptive vs Non-preemptive scheduling",
+    "notes": "Few shot format gives perfectly consistent output",
+    "temperature": 0.3
+  },
+  {
+    "id": 14,
+    "category": "System Design",
+    "title": "Database Schema Designer",
+    "pattern": "Role + JSON Output",
+    "when_to_use": "Design database schemas for any application",
+    "prompt": "You are a senior database architect.\n\nDesign a complete database schema for {application name}.\n\nRespond ONLY in valid JSON:\n{\n  \"tables\": [\n    {\n      \"table_name\": \"\",\n      \"purpose\": \"\",\n      \"columns\": [\n        {\n          \"name\": \"\",\n          \"type\": \"\",\n          \"constraints\": \"\",\n          \"description\": \"\"\n        }\n      ],\n      \"indexes\": [],\n      \"relationships\": []\n    }\n  ]\n}\n\nNo explanation. Just JSON.",
+    "notes": "Replace {application} with: ecommerce, hospital, school",
+    "temperature": 0.2
+  },
+  {
+    "id": 15,
+    "category": "DSA",
+    "title": "Complexity Cheat Sheet",
+    "pattern": "Role + JSON Output",
+    "when_to_use": "Quick reference for all time and space complexities",
+    "prompt": "You are a DSA expert and competitive programmer.\n\nGenerate a complete complexity cheat sheet for all major data structures and algorithms.\n\nRespond ONLY in valid JSON:\n{\n  \"complexities\": [\n    {\n      \"name\": \"\",\n      \"category\": \"data_structure/algorithm\",\n      \"best_case\": \"\",\n      \"average_case\": \"\",\n      \"worst_case\": \"\",\n      \"space_complexity\": \"\",\n      \"notes\": \"\"\n    }\n  ]\n}\n\nNo explanation. Just JSON.",
+    "notes": "Print this — complexity questions come in every interview",
+    "temperature": 0.1
+  },
+  {
+    "id": 16,
+    "category": "Python",
+    "title": "Resume Project Ideas Generator",
+    "pattern": "Role + JSON Output",
+    "when_to_use": "Get impressive project ideas to add to resume",
+    "prompt": "You are a senior Python developer and hiring manager.\n\nGenerate 10 Python project ideas that impress interviewers for a fresher.\n\nRespond ONLY in valid JSON:\n{\n  \"projects\": [\n    {\n      \"name\": \"\",\n      \"description\": \"\",\n      \"tech_stack\": [],\n      \"difficulty\": \"easy/medium\",\n      \"time_to_build\": \"\",\n      \"resume_impact\": \"\",\n      \"key_concepts_demonstrated\": []\n    }\n  ]\n}\n\nNo explanation. Just JSON.",
+    "notes": "Pick one project and build it before the interview",
+    "temperature": 0.7
+  },
+  {
+    "id": 17,
+    "category": "Networks",
+    "title": "HTTP vs HTTPS Deep Dive",
+    "pattern": "Role + Chain of Thought",
+    "when_to_use": "Understand HTTP/HTTPS deeply for backend interviews",
+    "prompt": "You are a cybersecurity expert and network engineer.\n\nExplain HTTP vs HTTPS for a technical interview.\n\nThink step by step:\n1. What is HTTP and how does it work?\n2. What are its security problems?\n3. How does HTTPS solve them?\n4. What is SSL/TLS handshake step by step?\n5. What interviewers expect you to know\n6. Common follow-up questions and answers\n\nGive interview-ready answers, not textbook definitions.",
+    "notes": "This topic appears in 80% of backend interviews",
+    "temperature": 0.3
+  },
+  {
+    "id": 18,
+    "category": "OOP",
+    "title": "Design Patterns Explainer",
+    "pattern": "Role + Few Shot + Chain of Thought",
+    "when_to_use": "Learn design patterns for senior role interviews",
+    "prompt": "You are a software architect with 10 years experience.\n\nExplain design patterns using this format:\n\nPattern: 'Singleton'\nProblem it solves: Only one instance needed globally\nReal world: Database connection pool\nPython code: class Singleton: _instance = None...\nWhen interviewers ask this: 'How do you ensure one DB connection?'\n\nNow explain in same format:\n- Factory Pattern\n- Decorator Pattern\n- Strategy Pattern",
+    "notes": "Few shot ensures perfectly consistent format",
+    "temperature": 0.3
+  },
+  {
+    "id": 19,
+    "category": "HR",
+    "title": "Salary Negotiation Coach",
+    "pattern": "Role + Chain of Thought",
+    "when_to_use": "Prepare for salary discussion in final round",
+    "prompt": "You are an experienced career coach and ex-HR manager at a top tech company in India.\n\nCoach me on salary negotiation for a fresher software developer role.\n\nThink step by step:\n1. Current market range for freshers in India\n2. How to research the right number\n3. Exact words to use when asked expected CTC\n4. How to counter a low offer\n5. Benefits to negotiate beyond salary\n6. Common mistakes freshers make\n\nGive me actual scripts — exact words to say.",
+    "notes": "Use temperature 0.5 for balanced practical advice",
+    "temperature": 0.5
+  },
+  {
+    "id": 20,
+    "category": "Mock Interview",
+    "title": "Full Mock Interview Simulator",
+    "pattern": "Role + Chain of Thought",
+    "when_to_use": "Complete 45-minute mock technical interview simulation",
+    "prompt": "You are a senior interviewer at a top tech company.\n\nConduct a complete 45-minute mock technical interview for me.\n\nThink step by step through the structure:\n1. 2 minute intro question\n2. 1 DSA problem (medium difficulty)\n3. 3 CS fundamental questions (OS/DBMS/Networks)\n4. 1 OOP design question\n5. 2 Python specific questions\n6. Honest feedback at the end\n\nRules:\n- Ask one question at a time\n- Wait for my answer before continuing\n- Give hints if stuck\n- Score me out of 10 at the end\n\nStart the interview now.",
+    "notes": "Best prompt in the library — use this daily for practice",
+    "temperature": 0.5
+  }
+]
