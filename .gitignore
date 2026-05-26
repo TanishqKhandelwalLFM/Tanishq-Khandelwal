@@ -9,3 +9,5 @@ instance/
 
 
 node_modules/
+
+create-db/
