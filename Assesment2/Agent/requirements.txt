@@ -1,0 +1,15 @@
+langchain
+langgraph
+langchain-community
+langchain-chroma
+langchain-mistralai
+
+chromadb
+
+mcp
+
+python-dotenv
+
+pydantic
+
+tiktoken

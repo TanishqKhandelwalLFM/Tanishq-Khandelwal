@@ -1,0 +1,274 @@
+1. Ans1 
+
+rag refers to retrieval augmented generation that allows our llm to connect with external data and use this as a context to answer our question
+
+
+2. Ans2
+
+a. Embedding are the numbers or the vectors of the characters/words make because machines cannot understand human language , however embeddings are created so that machine can understand 
+
+b. vector similarity is the process of finding similarity between two embedding vectors to find the semantic meaning in between them
+
+c. chunk size is the number of characters or tokens a embedding vector will have after splitting the document
+
+d. chunk overlap is the amount of characters or tokens where some last characters of previous vector and some first characters of next vector will have same characters
+
+e. after doing similarity search , it finds the top-k chunks which has the best semantic meaning from the given context
+
+3. Ans3 
+
+if the answer lies in the one paragraph , then chunk_size should be 600 and there shoukd be chunk overlap of 120 such that the semantic meaning are captured
+
+4. Ans4 
+
+documents = [
+    "Python is a popular programming language for data science and AI.",
+    "Machine learning enables computers to learn from data.",
+    "Cricket is a sport played between two teams of eleven players."
+]
+embedding_model = MistralAIEmbeddings(
+    model="mistral-embed",
+)
+
+vector_store = Chroma.from_texts(
+    texts = documents,
+    embedding = embedding_model,
+    persist_directory = 'chroma-db'
+)
+
+retriever = vector_store.as_retriever(
+    search_type = 'mmr',
+    search_kwargs = {
+        'k' : 2,
+        'fetch_k' : 3,
+        'lambda_mult' : 0.5
+    }
+)
+
+model = init_chat_model(model='mistral-small-2506')
+
+query = input("enter your query")
+
+docs = retriever.invoke(query)
+
+context = "\n\n".join(
+    [doc.page_content for doc in docs]
+)
+
+
+res = model.invoke(f"act as a assistant and answer the query on the basis of given context context : {context} query : {query}")
+print(res.content)
+
+5. Ans5 
+
+To reduce this problem , we can create a better ChatPromptTemplate and say that if the query is not within the provided context just simply say , answer is not found in the given context
+we can also use better similarity_search and use lambda_mult = 1.0 so that it just gives relevant context
+evaluation can be done on a list of multiple questions and checks whether they are correct or not
+
+
+6. Ans6 
+LangChain Expression Language is a way of defining Ai chains that will perform a task in a single go.
+here it is defined as a | b | c
+output of a will be treated as input of b
+
+it is used to improve readability and debugging capability 
+
+Eg :chain =  prompt | model 
+chain.invoke("hello") 
+
+now the output for prompt will br treated as input for model
+
+7. Ans7 
+
+prompt = ChatPromptTemplate.from_template(
+    "Write a one-sentence tagline for: {topic}"
+)
+
+model = init_chat_model(
+    model='mistral-small-2506'
+)
+
+query = input('enter the topic')
+
+chain = prompt | model | StrOutputParser()
+res = chain.invoke({"topic" : query} )
+
+print(res)
+
+
+8. Ans8 
+
+class llm_schema(BaseModel) : 
+    title : str
+    rating : int = Field(ge=1,le=10)
+    one_line_review : str = Field(min_length = 5 ,max_length = 30)
+
+parser = PydanticOutputParser(
+    pydantic_object=llm_schema
+)
+
+prompt = ChatPromptTemplate.from_template(
+    """
+Review the movie: {title}
+
+{format_instructions}
+"""
+)
+
+model = init_chat_model(
+    model="mistral-small-2506",
+    model_provider="mistralai"
+)
+
+chain = prompt | model | parser
+
+res = chain.invoke(
+    {
+        "title": "Interstellar",
+        "format_instructions" : parser.get_format_instructions()
+    }
+)
+
+print(res)
+
+
+9. Ans9 
+
+question = input('your question : ')
+
+a. PyPDFLoader()
+b. RecursiveCharacterTextSplitter()
+c. embedding_model = MistralAIEmbeddings(model="mistral-embed")
+d. vector_store = Chroma.from_documents()
+e.vector_store.as_retriever()
+f. ChatPromptTemplate.from_messages([
+    ("system","Act as an AI agent that will answer the given question on the basis of given context"),
+    ("human" , "context : {context} question : {question}")
+])
+
+
+chain = prompt | model | StrOutputParser()
+res = prompt.invoke({
+    "context" : context,
+    "question" : question
+})
+
+10. Ans10 
+
+langchain follows the linear chaining where the output of one runnable is treated as input for next runnable where langgraph shares the same memory StrOutputParser
+langchain is used for small workflows like prompt + models , whereas langgraph is used for complex agents where multiple tool_calls are involved
+Loops in langchain are need to be created manually , whereas in langgraph nodes can even perform cyclic and conditional branching
+langchain has limited branching whereas langgraph provides routing and conditional branching
+
+langgraph can perfoem cyclic workflows whereas langchain follows sequential chaining and execution
+
+
+
+11. 
+    state : state is the shared memory that all nodes can access and updates 
+    node : nodes are the functions or execution to update state
+    edges : edges decide the workflow in which it decides which node to be executed after current node
+    conditional edges : it decides the next node dynamically on the basis of condition that may happened in the previous node
+
+
+    execution starts at START node to first node where it will perform its execution and updates the state and then the updated state will be accessed by the next state and so on and execution ends at END node
+
+
+12. Ans12 
+
+
+from typing import TypedDict
+from langgraph.graph import StateGraph, START, END
+
+class graph_schema(TypedDict):
+    messages: list
+
+def greet(state: GraphState):
+    messages = state['messages']
+
+    temp = ['Hello!']
+    state['messages'] = messages.append(temp)
+
+    return state
+
+def farewell(state: GraphState):
+    messages = state['messages']
+
+    temp = ['Goodbye!']
+    state['messages'] = messages.append(temp)
+
+    return state
+
+graph = StateGraph(graph_schema)
+
+graph.add_node("greet", greet)
+graph.add_node("farewell", farewell)
+
+graph.add_edge(START, "greet")
+graph.add_edge("greet", "farewell")
+graph.add_edge("farewell", END)
+
+final_graph = graph.compile()
+
+res = final_graph.invoke(
+    {"messages": []}
+)
+
+print(res)
+
+
+
+
+13 . Ans13
+
+1. schema -> messages of list 
+tools -> search_tool 
+model_with_tool 
+
+2. nodes -> START , llm_node ( it will append a prompt with human query and a system prompt and will invoke the prompt )  , tool_node ( iterate over all tool_Calls and append in messages that will again go to llm_node ) , END 
+
+3. conditional function -> that will check if the last message contain tool_calls , them jump to tool_node else END
+
+4. loop will terminate when the last message  tool_Calls become empty and will jump to END 
+
+
+
+
+14. Ans 14
+
+a.  MCP (Model Context Protocol) provides a standardized way for AI applications to connect with external tools, APIs, databases, and data sources, eliminating the need for custom integrations for each service.
+
+b.  Host -> The Host is the AI application (e.g., an IDE, chatbot, or desktop AI app) that wants to access external capabilities through MCP.
+    Client -> The Client acts as an intermediary between the Host and MCP Servers, handling communication and protocol management.
+    Server -> The Server provides external functionality, data, or prompts that can be used by the AI application.
+
+c.  Tools -> Tools are executable functions or actions that the AI can invoke, such as sending emails, querying databases, or calling APIs.
+    Resources -> Resources are data sources that the AI can read, such as files, documents, database records, or web content.
+    Prompts -> Prompts are reusable prompt templates provided by the server to guide the AI in performing specific tasks.
+
+
+15. Ans 15 
+
+A tool is an executable action that the AI can invoke to perform a task; for example, a tool that sends an email through Gmail when the user asks the AI to contact someone. whereas , A resource is a source of data that the AI can read but not execute; for example, a PDF file containing company policies that the AI accesses to answer employee questions.
+
+
+16. Ans 16 
+
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("Word Count Server")
+
+@mcp.tool()
+def word_count(text: str) -> int:
+    """Count the number of words in the given text."""
+    return len(text.split())
+
+mcp.run()
+
+
+17. Ans 17 
+
+Write once, use everywhere. With normal function calling, you usually have to create and maintain separate integrations for each LLM provider. MCP gives you a standard interface, so a tool built once can work across different AI applications and models without rewriting the integration.
+Easier to connect external systems. Function calling only tells the model how to call a function, but MCP provides a complete way to expose tools, data sources, and reusable prompts. This makes it much simpler to plug an AI application into databases, files, APIs, and other services in a consistent way.
+
+

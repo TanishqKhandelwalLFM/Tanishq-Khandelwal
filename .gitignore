@@ -11,3 +11,7 @@ instance/
 node_modules/
 
 create-db/
+
+vectorstore/chroma_db/
+
+*.sqlite
