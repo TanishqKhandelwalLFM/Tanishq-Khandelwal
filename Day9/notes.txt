@@ -1,0 +1,13 @@
+mcp allows to ai models to securely connect with rxternal tools , data and apps in a consistent way
+
+rechietecture
+1. host 
+2. client
+3. server
+
+
+types of server
+stdio vs stremable http server
+
+1. stdio -> runs entire server locally on your computer
+2. stremable -> uses mcp server using http get/post requests 
